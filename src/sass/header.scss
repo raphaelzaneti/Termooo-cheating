@@ -1,0 +1,22 @@
+@use './var.scss';
+
+.header__navbar-color{
+    background-color: var.$medium-brown;
+}
+
+.header__navbar-list{
+    list-style: none;
+    color: var.$clear-bg;
+
+    h1{
+        margin-bottom: 0;
+    }
+
+    li:hover, li:active{
+        color: #fff;
+    }
+}
+
+.header__navbar-item{
+    padding-top: 1rem;
+}
