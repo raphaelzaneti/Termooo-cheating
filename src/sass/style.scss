@@ -1,2 +1,27 @@
+@use './var.scss';
+
 
 @use './header.scss';
+@use './instructions.scss';
+@use './letters-area.scss';
+@use './result-area.scss';
+
+//reset
+
+*{
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    font-family: var.$main-font;
+}
+
+main{
+    background-color: var.$clear-bg;
+    height: 100%;
+}
+
+@media(min-width: 992px){
+    *{
+        font-size: 18px;
+    }
+}

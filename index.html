@@ -11,27 +11,33 @@
 <body>
     <header class="header">
         <div class="collapse" id="header-menu">
-            <div class="header__navbar-color p-4">
+            <div class="header__navbar-color p-4 ">
                 <ul class="header__navbar-list">
                     <li>
                         <h1>Termooo - Cheater</h1>
                     </li>
                     <li class="header__navbar-item">
-                        Jogue Termooo
+                        <a href="https://term.ooo/">
+                            Jogue Termooo
+                        </a>
                     </li>
                     <li class="header__navbar-item">
-                        Jogue Wordle
+                        <a href="https://www.nytimes.com/games/wordle/index.html">
+                            Jogue Wordle
+                        </a>
                     </li>
                 </ul>
             </div>
           </div>
-          <nav class="navbar navbar-dark header__navbar-color">
+          <nav class="navbar navbar-dark header__navbar-color ">
             <div class="container-fluid">
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#header-menu" aria-controls="header-menu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
             </div>
           </nav>
+
+          
     </header>
 
     <main>
@@ -44,14 +50,14 @@
         <section class="letters-area">
             <div class="letters-area__input-correct">
                 <label for="correct-letters">Insira as letras que constam na palavra buscada, independentemente de ordem</label>
-                <textarea name="correct-letters" id="correct-letters" cols="30" rows="10"></textarea>
+                <textarea name="correct-letters" id="correct-letters"></textarea>
             </div>
             <div class="letters-area__input-wrong">
                 <label for="wrong-letters">Insira as letras que <strong>NÃO</strong> constam na palavra buscada, independentemente de ordem</label>
-                <textarea name="wrong-letters" id="wrong-letters" cols="30" rows="10"></textarea>
+                <textarea name="wrong-letters" id="wrong-letters"></textarea>
             </div>
             <div class="letters-area__buttons-area">
-                <button class="letters-area__button btn">Gerar palavras!</button>
+                <button class="letters-area__button btn-generate btn">Gerar palavras!</button>
                 <button class="letters-area__button btn">Limpar campos</button>
             </div>
         </section>
@@ -59,10 +65,10 @@
         <section class="result-area">
             <div>
                 <h3>Possíveis palavras:</h3>
-                <ul class="result-area__list">
-                    <li class="result-area__item">Exemplo 1</li>
-                    <li class="result-area__item">Exemplo 2</li>
-                    <li class="result-area__item">Exemplo 3</li>
+                <div class="result-area__list">
+                    <div class="result-area__item">Exemplo 1</div>
+                    <div class="result-area__item">Exemplo 2</div>
+                    <div class="result-area__item">Exemplo 3</div>
                 </ul>
             </div>
         </section>

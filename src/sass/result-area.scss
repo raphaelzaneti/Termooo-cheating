@@ -1,0 +1,40 @@
+@use './var';
+
+.result-area{
+    margin-top: 20px;
+    text-align: center;
+    padding-bottom: 20px;
+
+    color: var.$medium-brown;
+
+    h3{
+        margin-bottom: 18px;
+    }
+
+    &__list{
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    &__item{
+        color: var.$dark-brown;
+        border: solid 1px var.$dark-brown;
+        padding: 8px;
+        border-radius: 5px;
+    }
+
+}
+
+@media(min-width: 649px){
+    .result-area h3{
+        margin-bottom: 30px;
+    }
+}
+
+@media(min-width: 992px){
+    .result-area__list{
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+    }
+}

@@ -19,4 +19,9 @@
 
 .header__navbar-item{
     padding-top: 1rem;
+
+    a{
+        text-decoration: none;
+        color: var.$clear-bg;
+    }
 }
