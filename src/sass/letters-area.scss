@@ -47,6 +47,11 @@
             transform: translateY(-2px);
         }
     }
+
+    &__error{
+        color: red;
+        font-weight: bold;
+    }
 }
 
 .btn-generate{

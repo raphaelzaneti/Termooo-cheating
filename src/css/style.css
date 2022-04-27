@@ -85,6 +85,10 @@
   color: #f3e9dc;
   transform: translateY(-2px);
 }
+.letters-area__error {
+  color: red;
+  font-weight: bold;
+}
 
 .btn-generate {
   background-color: #5e3023;
