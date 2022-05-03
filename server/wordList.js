@@ -1,17 +1,20 @@
 //fonte: https://www.ime.usp.br/~pf/dicios/br-utf8.txt
 
 //tratamento da word list
-const path = '../../assets/wordlist.txt'
 
-function getWordList(path){
-    const wordList = fetch(path)
-        .then(res => res.text())
-        .then(text => treatText(text))
-        //.then(text => text.split('\n'))
-        //.then(arr => arr.map(e => e.replace('\r', "")))
-        .then(list => getRelevantWords(list))
+const fs = require('fs')
+const path = './wordlist.txt'
 
-    return wordList    
+async function getWordList(path){
+
+    const text = fs.readFileSync(path, 'utf-8')
+    const array = await treatText(text)
+    const fullList = array.map(e => e.replace('\r', ""))
+    
+    //console.log('getwordlist')
+    const wordList = getRelevantWords(fullList)
+    
+    return wordList  
 }
 
 async function treatText(text){
@@ -27,43 +30,25 @@ async function getRelevantWords(arr){
         if(e.length===5)
         return e
     }
+    
     return result
 }
 
 const words = getWordList(path)//.then(r => console.log(r));
 
-//get das letras inseridas pelo user
-const correctLetters = document.getElementById('correct-letters')
-const wrongLetters = document.getElementById('wrong-letters')
+correctLetters = 'M,L,T'
+wrongLetters = 'O,I'
 
-function separateLetters(){
-    const regex =  /([A-z])/g
-    correctLetters.value = correctLetters.value.match(regex).join()
-    wrongLetters.value = wrongLetters.value.match(regex).join()
-    
-}
+//handleGenerateButton({correct: correctLetters, wrong: wrongLetters})
 
-function handleGenerateButton(){
-    const letters = generateLettersObj()
-
-    let duplicatedLetters = []
-
-    letters.correct.map(e => {
-        if(letters.wrong.some(letter => letter===e)){
-            duplicatedLetters.push(e)
-        }
-    })
-
-    if(duplicatedLetters.length>0){
-        $('.letters-area__error').text(`ERRO: As seguintes letras foram inseridas em ambos os campos: ${duplicatedLetters.join(", ")}`)
-    } else{
-        findPossibleWords(letters)
-    }
+function handleGenerateButton(obj){
+    const letters = generateLettersObj(obj)
+    return findPossibleWords(letters)
 
 }
 
-function generateLettersObj(){
-    let correctArr = correctLetters.value.toUpperCase().split(',').filter((e, i, arr) =>{
+function generateLettersObj(obj){
+    let correctArr = obj.correct.toUpperCase().split(',').filter((e, i, arr) =>{
         for(let ind = i+1; ind<arr.length; ind++){
             if(e===arr[ind]){
                 return null
@@ -72,7 +57,7 @@ function generateLettersObj(){
         return e
     })
 
-    let wrongArr = wrongLetters.value.toUpperCase().split(',').filter((e, i, arr) =>{
+    let wrongArr = obj.wrong.toUpperCase().split(',').filter((e, i, arr) =>{
         for(let ind = i+1; ind<arr.length; ind++){
             if(e===arr[ind]){
                 return null
@@ -81,7 +66,7 @@ function generateLettersObj(){
         return e
     })
     
-    console.log('correct: '+correctArr+" wrong: "+wrongArr)
+    //console.log('correct: '+correctArr+" wrong: "+wrongArr)
     
     return {
         correct: correctArr, 
@@ -93,15 +78,18 @@ async function findPossibleWords(obj){
 
     const wordsBase = await words
 
-    console.log(wordsBase)
+    //console.log('WORDBASE: '+ wordsBase.length)
+    //console.log(obj)
 
     const correctFilter = wordsBase.map(e =>{
-
+        
         let counter = 0
         for(let i=0; i<obj.correct.length; i++){
-
+            
             if(e.includes(obj.correct[i])){
+                
                 counter++
+                //console.log(obj.correct[i], counter)
             }
         }
         
@@ -124,9 +112,12 @@ async function findPossibleWords(obj){
     })
         .filter(e => e!==null)
 
-    console.log(possibleWords.length, " - ", possibleWords)
-
+    //console.log(possibleWords.length, " - ", possibleWords)
+    return possibleWords
 }
+
+
+module.exports = handleGenerateButton
 
 function removeDiacritics (str) {
 
