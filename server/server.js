@@ -15,7 +15,6 @@ app.post('/api/checkWords', async (req, res) =>{
     const request = req.body
     const words = await generateWordList(request)
 
-    console.log(words)
     res.send(words)
 })
 

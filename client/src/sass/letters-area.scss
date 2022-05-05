@@ -25,8 +25,27 @@
         margin-top: 20px;
     }
 
+    &__positioned{
+        margin-top: 30px;
+
+        &-flex{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        &-input{
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            font-size: 16px;
+            color: var.$medium-brown;
+        }
+    }
+
     &__buttons-area{
-        margin-top: 14px;
+        margin-top: 30px;
         margin-bottom: 20px;
         display: flex;
         justify-content: space-evenly;

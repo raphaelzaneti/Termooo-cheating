@@ -3,11 +3,13 @@
 //tratamento da word list
 
 const fs = require('fs')
-const path = './wordlist.txt'
+const path = require('path')
 
-async function getWordList(path){
+const wordsFile = path.resolve(__dirname)+'/wordlist.txt'
 
-    const text = fs.readFileSync(path, 'utf-8')
+async function getWordList(wordsFile){
+    
+    const text = fs.readFileSync(wordsFile, 'utf-8')
     const array = await treatText(text)
     const fullList = array.map(e => e.replace('\r', ""))
     
@@ -34,7 +36,7 @@ async function getRelevantWords(arr){
     return result
 }
 
-const words = getWordList(path)//.then(r => console.log(r));
+const words = getWordList(wordsFile)//.then(r => console.log(r));
 
 correctLetters = 'M,L,T'
 wrongLetters = 'O,I'
@@ -65,41 +67,22 @@ function generateLettersObj(obj){
         }
         return e
     })
+
+    let positionedArr = obj.positioned.map(e => e.toUpperCase())
     
     //console.log('correct: '+correctArr+" wrong: "+wrongArr)
     
     return {
         correct: correctArr, 
-        wrong: wrongArr
+        wrong: wrongArr,
+        positioned: positionedArr
     }
 }
 
 async function findPossibleWords(obj){
 
     const wordsBase = await words
-
-    //console.log('WORDBASE: '+ wordsBase.length)
-    //console.log(obj)
-
-    const correctFilter = wordsBase.map(e =>{
-        
-        let counter = 0
-        for(let i=0; i<obj.correct.length; i++){
-            
-            if(e.includes(obj.correct[i])){
-                
-                counter++
-                //console.log(obj.correct[i], counter)
-            }
-        }
-        
-        if(counter===obj.correct.length){
-            return e
-        }
-
-        return null
-    })
-        .filter(e => e!==null)
+    const correctFilter = getCorrectedWords(wordsBase, obj.correct)
     
     const possibleWords = correctFilter.map(e =>{
 
@@ -111,11 +94,94 @@ async function findPossibleWords(obj){
         return e
     })
         .filter(e => e!==null)
+    
+    const positionedWords = getPositionedWords(obj.positioned, possibleWords)
 
-    //console.log(possibleWords.length, " - ", possibleWords)
-    return possibleWords
+    const suggestedWords = getSuggestedWords(wordsBase, obj.correct, obj.wrong, positionedWords)
+
+    return  {
+        possible: positionedWords,
+        counter: positionedWords.length,
+        suggested: suggestedWords
+    }
 }
 
+function getCorrectedWords(words, correct){
+
+    const correctFilter = words.map(e =>{
+        
+        let counter = 0
+        for(let i=0; i<correct.length; i++){
+            
+            if(e.includes(correct[i])){
+                
+                counter++
+                
+            }
+        }
+        
+        if(counter===correct.length){
+            return e
+        }
+
+        return null
+    })
+        .filter(e => e!==null)
+
+    return correctFilter
+
+}
+
+function getPositionedWords(positioned, possible){
+    let countPositioned = (positioned.filter(e => e!=="")).length
+
+    const positionedWords = possible.map((e) => {
+
+        let counter = 0
+        for(let i = 0; i<positioned.length; i++){
+            
+            if(positioned[i]===e[i]){
+                counter++
+            }
+        }
+
+        if(counter===countPositioned){
+            return e
+        } else{
+            return null
+        }
+    }).filter(e => e!==null)
+
+    return positionedWords
+}
+
+function getSuggestedWords(words, correctLetters, wrongLetters, positionedWords){
+    const lettersToRemove = correctLetters.concat(wrongLetters)
+
+    const remainingWords = words.map(word => {
+
+        for(let i = 0; i<lettersToRemove.length; i++){
+            if(word.includes(lettersToRemove[i]))
+                return null
+        }
+
+        return word
+    }).filter(e => e!==null)
+
+    const suggestedWords = remainingWords.map(e =>{
+        let wordArr = e.split("").sort()
+
+        for(let i = 1; i<wordArr.length; i++){
+            if(wordArr[i]===wordArr[i-1])
+                return null
+        }
+
+        return e
+    }).filter(e => e!==null)
+
+    //console.log('sugestions: '+suggestedWords)
+    return suggestedWords.slice(0, 5)
+}
 
 module.exports = handleGenerateButton
 

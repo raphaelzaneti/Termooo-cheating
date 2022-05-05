@@ -56,12 +56,25 @@
                 <label for="wrong-letters">Insira as letras que <strong>NÃO</strong> constam na palavra buscada, independentemente de ordem</label>
                 <textarea name="wrong-letters" id="wrong-letters" onchange="separateLetters()"></textarea>
             </div>
+
+            <div class="letters-area__positioned">
+                <p>Caso existam letras em posição exata, inserir abaixo</p>
+                <div class="letters-area__positioned-flex">
+                    <input class="letters-area__positioned-input" type="text" id="positioned-0" maxlength="1">
+                    <input class="letters-area__positioned-input" type="text" id="positioned-1" maxlength="1">
+                    <input class="letters-area__positioned-input" type="text" id="positioned-2" maxlength="1">
+                    <input class="letters-area__positioned-input" type="text" id="positioned-3" maxlength="1">
+                    <input class="letters-area__positioned-input" type="text" id="positioned-4" maxlength="1">
+                </div>
+            </div>
+
             <div class="letters-area__buttons-area">
                 
                 <button class="letters-area__button btn-generate btn" onclick="handleClick()">Gerar palavras!</button>
                 <button class="letters-area__button btn" onclick="clearFields()">Limpar campos</button>
                 
             </div>
+
             <div class="letters-area__error">
                 
             </div>
@@ -70,12 +83,15 @@
         <section class="result-area">
             <div>
                 <h3>Possíveis palavras:</h3>
+                <span class="result-area__counter"></span>
                 <div class="result-area__list">
-                    <div class="result-area__item">Exemplo 1</div>
-                    <div class="result-area__item">Exemplo 2</div>
-                    <div class="result-area__item">Exemplo 3</div>
+                    
                 </ul>
             </div>
+        </section>
+
+        <section class="suggested-words">
+
         </section>
 
     </main>
