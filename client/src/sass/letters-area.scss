@@ -16,9 +16,11 @@
     textarea{
         resize: none;
         height: 60px;
+        border-radius: 10px;
         padding-left: 8px;
         padding-top: 4px;
         color: var.$dark-brown;
+        outline-color: var.$medium-brown;
     }
 
     &__input-wrong{
@@ -41,6 +43,8 @@
             text-align: center;
             font-size: 16px;
             color: var.$medium-brown;
+            outline-color: var.$medium-brown;
+            border-radius: 5px;
         }
     }
 
@@ -64,6 +68,10 @@
             background-color: var.$dark-brown;
             color: var.$clear-bg;
             transform: translateY(-2px);
+        }
+
+        &:focus{
+            box-shadow: 0 0 0 0.1rem rgba(94, 48, 35, 0.2);
         }
     }
 

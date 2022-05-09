@@ -13,7 +13,6 @@ async function getWordList(wordsFile){
     const array = await treatText(text)
     const fullList = array.map(e => e.replace('\r', ""))
     
-    //console.log('getwordlist')
     const wordList = getRelevantWords(fullList)
     
     return wordList  
@@ -36,14 +35,9 @@ async function getRelevantWords(arr){
     return result
 }
 
-const words = getWordList(wordsFile)//.then(r => console.log(r));
+const words = getWordList(wordsFile)
 
-correctLetters = 'M,L,T'
-wrongLetters = 'O,I'
-
-//handleGenerateButton({correct: correctLetters, wrong: wrongLetters})
-
-function handleGenerateButton(obj){
+function runPipeline(obj){
     const letters = generateLettersObj(obj)
     return findPossibleWords(letters)
 
@@ -69,8 +63,6 @@ function generateLettersObj(obj){
     })
 
     let positionedArr = obj.positioned.map(e => e.toUpperCase())
-    
-    //console.log('correct: '+correctArr+" wrong: "+wrongArr)
     
     return {
         correct: correctArr, 
@@ -179,11 +171,10 @@ function getSuggestedWords(words, correctLetters, wrongLetters, positionedWords)
         return e
     }).filter(e => e!==null)
 
-    //console.log('sugestions: '+suggestedWords)
-    return suggestedWords.slice(0, 5)
+    return suggestedWords
 }
 
-module.exports = handleGenerateButton
+module.exports = runPipeline
 
 function removeDiacritics (str) {
 

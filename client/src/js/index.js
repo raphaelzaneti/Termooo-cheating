@@ -11,8 +11,6 @@ async function handleClick() {
         document.getElementById("positioned-4").value
     ]
 
-
-    console.log(positioned)
     const lettersObj = { correct: correctLetters.value, wrong: wrongLetters.value, positioned: positioned }
     
     if (hasDuplicates(lettersObj)){
@@ -36,7 +34,6 @@ function hasDuplicates(letters) {
     })
 
     if (duplicatedLetters.length > 0) {
-        console.log('duplicates: ' +duplicatedLetters)
         $('.letters-area__error').text(`ERRO: As seguintes letras foram inseridas em ambos os campos: ${duplicatedLetters.join(", ")}`)
         return true
     }
@@ -54,13 +51,14 @@ function separateLetters() {
 function clearFields() {
     correctLetters.value = ""
     wrongLetters.value = ""
+    $('.letters-area__positioned-input').val("")
 
 }
 
 function renderWords(wordsObj){
     $('.result-area__list').text("")
     $('.suggested-words').text("")
-    console.log(wordsObj)
+    
 
     $('.result-area__counter').text(wordsObj.counter+" palavras encontradas")
     wordsObj.possible.map(e => {

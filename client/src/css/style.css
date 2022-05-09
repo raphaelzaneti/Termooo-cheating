@@ -58,9 +58,11 @@
 .letters-area textarea {
   resize: none;
   height: 60px;
+  border-radius: 10px;
   padding-left: 8px;
   padding-top: 4px;
   color: #5e3023;
+  outline-color: #895737;
 }
 .letters-area__input-wrong {
   margin-top: 20px;
@@ -80,6 +82,8 @@
   text-align: center;
   font-size: 16px;
   color: #895737;
+  outline-color: #895737;
+  border-radius: 5px;
 }
 .letters-area__buttons-area {
   margin-top: 30px;
@@ -100,6 +104,9 @@
   background-color: #5e3023;
   color: #f3e9dc;
   transform: translateY(-2px);
+}
+.letters-area__button:focus {
+  box-shadow: 0 0 0 0.1rem rgba(94, 48, 35, 0.2);
 }
 .letters-area__error {
   color: red;

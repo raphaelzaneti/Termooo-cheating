@@ -1,7 +1,5 @@
 const generateWordList = require('./wordList')
 
-//console.log(generateWordList({correct: 'M,L,T', wrong:'O,I'}))
-
 const express = require('express')
 const app = express()
 
